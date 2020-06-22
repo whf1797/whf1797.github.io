@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>顶点 - 王洪飞</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">王洪飞</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">目录 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../list1/">SWIFT</a>
+</li>
+                                    
+<li >
+    <a href="../draw/">Draw</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">顶点</a>
+</li>
+                                    
+<li >
+    <a href="../list1/">目录1</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">目录2</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../list1/">目录2.1</a>
+</li>
+            
+<li >
+    <a href="../list1/">目录2.2</a>
+</li>
+            
+<li >
+    <a href="../list1/">目录2.3</a>
+</li>
+            
+<li >
+    <a href="../list1/">目录2.4</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../code/">code</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../draw/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../list1/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#_1">顶点数据实践</a></li>
+            <li><a href="#_2">简化模型</a></li>
+            <li><a href="#_3">避免在属性数组中存储常量</a></li>
+            <li><a href="#_4">对属性使用最小可接受类型</a></li>
+            <li><a href="#_5">使用交错顶点数据</a></li>
+            <li><a href="#_6">避免未对齐的定点数据</a></li>
+            <li><a href="#_7">使用三角带批处理顶点数据</a></li>
+            <li><a href="#_8">使用定点缓冲区对象来管理复制定点数据</a></li>
+            <li><a href="#_9">缓冲区使用提示</a></li>
+            <li><a href="#_10">使用定点数组对象合并定点数组状态更改</a></li>
+            <li><a href="#_11">将缓冲区映射到客户端内存以进行快速更新</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="_1">顶点数据实践</h1>
+<p>要使用OpenGLES渲染框架,您的应用程序会配置图形渲染管道并提交绘制的图形基元. 在某些应用程序中,所有基元都是使用相同的管道配置绘制的.其他应用可能会使用不同的技术来渲染框架的不同元素,但是无论您的应用程序中使用哪种原语或管道的配置方式如何,您的应用程序都会为OpenGL ES提供顶点,本章提供有关顶点数据的复习,并针对如何有效处理顶点数据提供有针对性的建议</p>
+<p>顶点包含一个或多个属性,例如位置,颜色,法线或者纹理坐标.OpenGL ES2.0或OpenGL ES3.0应用程序可以自由定义自己的属性,顶点数据中的每个属性都对应一个属性变量,该变量充当顶点着色器的输入 OpenGL 1.1应用程序使用由固定功能管道定义的属性</p>
+<p>您将属性定义为由一到四个组成部分组成的向量.属性中的所有组件共享一个公共数据类型,例如一种颜色可能定义四个GLubyte成分(红色,绿色,蓝色,alpha).将属性加载到着色器变量中时,OpenGLES将默认值填充应用程序数据未提供的任何组件.如图所示,最后一个组件被填充1,其他未指定的组件被填充0
+<img src = "/img/interleaved_vertex_data_1_2x.png" /></p>
+<p>您的应用程序可能将属性配置为常量,这意味着将相同的值用于作为draw命令一部分提交的所有定点或数组,这意味着每个定点都是该属性的值.当您的应用程序在OpenGLES
+中调用一个函数绘制一组顶点时,顶点数据将从您的应用程序复制到图形硬件.然后,图形硬件会作用于顶点数据,在着色器中处理每个定点,组装图元并将其光栅化到帧缓冲区中.OpenGLES的一个优点是,它标准化了一组函数以将顶点数据提交给OpenGLES,从而消除了OpenGL提供的较旧且效率较低的机制
+必须提交大量图元以渲染框架的应用程序需要仔细管理其顶点数据以及如何将其提供给OpenGLES.本章描述的时间可以归纳为一些基本原则</p>
+<ul>
+<li>减少顶点数据的大小</li>
+<li>减少在OpenGLES可以将顶点数据传输到图形硬件之前必须进行的预处理</li>
+<li>减少将顶点数据复制到图形硬件所花费的时间</li>
+<li>减少对每个顶点执行的计算</li>
+</ul>
+<h2 id="_2">简化模型</h2>
+<p>基于ios的设备的图形硬件非常强大,但是其显示的图像通常很小.您不需要极端复杂的模型即可在ios上呈现引人注目的图形,减少用于绘制模型的顶点数量可直接减少顶点数据的大小以及对顶点数据执行的计算</p>
+<p>您可以使用以下一些技术来降低模型的复杂性:</p>
+<ul>
+<li>
+<p>提供不同级别细节的模型的多个版本,并在运行时根据对象与摄像机的距离和显示器 的尺寸选择合适的模型</p>
+</li>
+<li>
+<p>使用纹理消除对某些顶点信息的需求,例如,凹凸贴面用于在不添加更多顶点数据的情况下向模型添加细节</p>
+</li>
+<li>
+<p>一些模型添加到顶点以改善光照细节或渲染质量.通常,当在栅格化阶段为每个顶点计算值并在三角形上进行插值时,便可以执行此操作.例如,如果将聚光灯指向三角形的中心,则其效果可能不会被注意到,因为聚光灯的最亮部分没有指向顶点.通过添加顶点,您可以提供更多的插值点,但代价是增加了顶点数据和在模型上执行的计算的大小.与其添加其他顶点,不如考虑将计算移至管道的片段阶段</p>
+<ol>
+<li>如果您的应用程序使用OpenGLES 2.0或更高版本,则您的应用程序将在顶点着色器中执行计算并将其分配给可变变量.图形硬件对变化的值进行插值,并将其作为输入传递给片段着色器.而是将计算的输入分配给可变变量.然后在片段着色器中执行计算</li>
+<li>如果您的应用程序使用OpenGLES 1.1,则可以使用DOT3照明执行每片段照明,为此,您可以添加凹凸贴图纹理以保存常规信息,并使用纹理并合并操作和GL_DOT3_RGB模式来应用凹凸贴图</li>
+</ol>
+</li>
+</ul>
+<h2 id="_3">避免在属性数组中存储常量</h2>
+<p>如果您的模型包含使用在整个模型中保持不变的数据的属性,请不要为每个定点重复重复该数据.OpenGLES2.0和3.0应用程序可以设置恒定的定点属性,也可以使用统一的着色器值来保存该值</p>
+<h2 id="_4">对属性使用最小可接受类型</h2>
+<p>指定属性的每个组件的大小时,请选择可提供可接受结果的最小整数数据类型,一下是一些准则:</p>
+<ul>
+<li>使用四个无符号字节分量(GL_UNSIGNED_BYTE)指定顶点颜色</li>
+<li>使用2或4个无符号字节(GL_UNSIGNED_BYTE)或无符号short(GL_UNSIGNED_SHORT)指定纹理坐标.</li>
+<li>避免使用OpenGLES GL_FIXED数据类型,它需要与相同数量的内存GL_FLOAT,但提供的值范围较小,所有ios设备均支持硬件浮点单元,因此可以更快的处理浮点值</li>
+<li>OpenGLES 3.0上下文支持更广泛的小型数据类型,例如GL_HLOAT和GL_INT_2_10_10_10_REV.这些通常可为属性(例如发现)提供足够的精度,且占用的空间小于GL_FLOAT</li>
+</ul>
+<p>如果指定较小的组件,请确保对顶点格式重新安排,以表面未对其顶点数据</p>
+<h2 id="_5">使用交错顶点数据</h2>
+<p>您可以将顶点数据指定为一系列数组(也称array的struct),也可以指定为每个元素包含多个属性的数组(struct的数组).ios上的首选格式是具有单个交错顶点格式的结构数组,ios上的首选格式是具有单个交错顶点的结构数组.交错数据为每个定点提供了更好的内存局部性
+<img src = "/img/interleaved_vertex_data_2_2x.png" /></p>
+<p>如果您的应用程序需要以不同于其余顶点数据的速率更新某些顶点数据,或者某些数据可以在两个或多个模型之间共享,则此规则例外,无论哪种情况,您都可能希望将属性数据分成两个或多个结构
+<img src ="/img/usage_pattern_vertex_data_2x.png" /></p>
+<h2 id="_6">避免未对齐的定点数据</h2>
+<p>在设计顶点结构时,请将每个属性的开头与一个偏移量对齐,该偏移量可以是其组件大小的倍数或4个字节,以较大者为准,当属性未对齐时,ios必须先执行其他处理,然后再将数据传递到图形硬件
+在下图中,位置和法线数据分别定义为三个短整数,总共6个字节.普通数据以offset开头6,该偏移量是本机大小(2个字节)的倍数,但不是4个字节的倍数,如果将此数据提交给ios,则ios将在数据传递到硬件之前不得不花费额外的时间来复制和对齐数据,要解决此问题,请在没个属性后面显示添加两个填充字节
+<img src = "/img/aligned_vertex_data_2x.png" /></p>
+<h2 id="_7">使用三角带批处理顶点数据</h2>
+<p>使用三角形条纹可以显著减少OpenGLES必须在模型上执行的定点计算次数,在下图的左侧使用总共9个定点指定了三个三角形,C,E和G实际上指定了相同的定点!通过将数据指定为三角形带,可以将顶点数从9个减少为5个
+<img src ="/img/triangle_strip_2x.png" /></p>
+<p>有时,您的应用程序可以将多个三角形带组合为一个较大的三角形带,所有条带必须共享相同的渲染要求,这表示</p>
+<ul>
+<li>您必须使用相同的着色器来绘制所有三角带</li>
+<li>您必须能够在不更改任何OpenGL状态的情况下渲染所有三角带</li>
+<li>三角带必须共享相同的定点属性</li>
+</ul>
+<p>要合并两个三角行条,请复制第一个条的最后一个顶点和第二个条的第一个顶点,如下图所示,将此条提交给OpenGLES时,三角形DEE,EEF,EFF和FFG被认为是退化的,没有经过处理或栅格化
+<img src = "/img/degenerate_triangle_strip_2x.png" />
+为了获得最佳性能,您的模型应作为单个索引三角带提交.为避免在顶点缓冲区中多次为同一个顶点指定数据,请使用单独的索引缓冲区,并使用glDrawElements函数(或glDrawElementsInstanced或glDrawRangeElements函数,如果合适)绘制三角形带</p>
+<p>在OpenGLES 3.0中,您可以使用原始重启功能来合并三角形带,而无需使用退化三角形.启用此功能后,OpenGLES会将索引缓冲区中的最大可能值视为命令来完成一个三角形带并开始另一个三角形带,下代码演示了这种方法</p>
+<pre><code class="c++">//准备索引缓冲区数据（未显示：顶点缓冲区数据，加载顶点和索引缓冲区）
+GLushort indexData [11] = {
+    0，1，2，3，4，//三角带ABCDE
+    0xFFFF，//基本重启索引（可能的最大GLushort值）
+    5，6，7，8，9，//三角带FGHIJ
+};
+
+//绘制三角形条
+glEnable（GL_PRIMITIVE_RESTART_FIXED_INDEX）;
+glDrawElements（GL_TRIANGLE_STRIP，11，GL_UNSIGNED_SHORT，0）;
+
+</code></pre>
+
+<p>在可能的情况下,对顶点和索引数据进行排序,以便在三角形带中合理的绘制彼此临近的共享顶点的三角形.图形硬件通常会缓存最近的定点计算,以避免重新计算顶点</p>
+<h2 id="_8">使用定点缓冲区对象来管理复制定点数据</h2>
+<p>下面代码8-2提供了一个功能,简单的应用程序可以使用该功能向顶点着色器提供位置和颜色数据.它启用两个属性.并将每个属性配置为指向交错的定点结构,最后他调用该glDrawElements函数以将模型渲染为单个三角形带</p>
+<pre><code class="c++">typedef struct _vertexStruct
+{
+    GLfloat position[2];
+    GLubyte color[4];
+}vertexStruct;
+
+void DrawModel(){
+    const vertexStruct vertices[] = {...};
+    const GLubyte indices[] = {...};
+
+    glVertexAttribPointer(GLKVertexAttribPosition,2,GL_FLOAT,GL_FALSE,sizeof(vertexStruct),&amp;vertices[0].position);
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    glEnableAttribPointer(GLKVertexAttribColor,4,GL_UNSIGNED_BYTE, GL_TRUE,sizeof(vertexStruct),&amp;vertices[0].color);
+    glEnableVertexAttribArray(GLKVertexAttribColor);
+    glDrawElements(GL_TRIANGLE_STRIP,sizeof(indices)/sizeof(GLubyte),GL_UNSIGNED_BYTE,indices);
+
+}
+
+</code></pre>
+
+<p>该代码有效,但是效率低下.每次DrawModel调用时,索引和顶点数据都会复制到OpenGLES,然后传输到图形硬件.如果定点数据在两次调用之间没有变化,则这些不必要的副本会影响性能.为避免不必要的复制,您的应用程序应将其顶点数据存储在顶点缓冲对象(VBO),因为OpenGLES拥有顶点缓冲区对象的内存,所以它可以将缓冲区存储在图形硬件更易于访问的内存中,或将数据预处理为图形硬件的首选格式</p>
+<pre><code>注意:在OpenGLES3.0中使用顶点数组对象时,还必须使用顶点缓冲对象.
+</code></pre>
+<p>下面的代码8-3创建了一对顶点缓冲对象,一个用于保存顶点数据,第二个用于存储条的索引,在每种情况下,代码都会生成一个新对象,将其绑定为当前缓冲区,然后填充缓冲区,CreateVertexBuffers应用初始化时会被调用</p>
+<pre><code class="c++">GLuint vertexBuffer;
+GLuint indexBuffer;
+void CreateVertexBuffers(){
+    glGenBuffers(1, &amp;vertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices),vertices,GL_STATIC_DRAW);
+
+    glGenbuffers(1, &amp;indexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices),indices,GL_STATIC_DRAW);
+}
+
+</code></pre>
+
+<p>下面的代码8-4修改了代码8-2使用定点缓冲区对象,代码8-4的主要区别在于,glVertexAttribPointer函数的参数不再指向顶点数组.相反,每个对象都是顶点缓冲区对象的偏移量</p>
+<pre><code class="c++">void drawModelUsingvertexBuffer(){
+    glBindBuffer(GL_ARRAY_BUFFER,vertexBuffer);
+    glVertexattribPointer(GLKVertexAttribPosition,2,GL_FLOAT,GL_FALSE,sizeof(vertexStruct),(void*)offsetof(vertexStruct,position));
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+
+    glVertexattribPointer(GLKVertexAttribColor,GL_UNSIGNED_BYTE,GL_TRUE,sizeof(vertexStruct),(void*)offsetof(vertexStruct,color));
+    glEnableVertexAttribArray(GLKVertexAttribColor);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER,indexBuffer);
+
+    glDrawElements(GL_TRIANGLE_STRIP,sizeof(indices)/sizeof(GLubyte),GL_UNSIGNED_BYTE,(void *)0);
+}
+</code></pre>
+
+<h2 id="_9">缓冲区使用提示</h2>
+<p>前面的实例一次初始化了顶点缓冲区,此后从未更改其内容,您可以更改顶点缓冲区的内容.顶点缓冲区对象设计的关键部分是应用程序可以通知OpenGLES3如何使用缓冲区中存储的数据,OpenGLES实现可以使用此提示来更改用于存储顶点数据的侧率,在代码8-3中,对glBufferData函数的每次调用都提供用法提示作为最后一个参数,传递GL_STATIC_DRAW到glBufferData告诉OpenGLES这两个缓冲区的内容从来没想过要改变,这给OpenGLES的更多机会,以优化如何以及在何处存储数据
+OpenGLES规范定义了以下使用情况:</p>
+<ul>
+<li>GL_STATIC_DRAW适用于多次渲染且其内容仅指定一次且永不更改的顶点缓冲区</li>
+<li>GL_DYNAMIC_DRAW用于多次渲染的定点缓冲区,其内容在渲染循环中会更改</li>
+<li>GL_STREAM_DRAW用于顶点缓冲区,渲染次数很少,然后丢弃
+在ios中GL_DYNAMIC_DRAW并且GL_STREAM_DRAW是等价的.您可以使用glBufferSubData函数来更新缓冲区内容,但是这样做会导致性能下降,因为他刷新命令缓冲区并等待所有命令完成.双重或三次缓冲区可以稍微降低此性能成本,(请参阅使用双缓冲区以避免资源冲突),为了获取更好的性能,请使用glMapBufferrange OpenGLES中的功能EXT_map_buffer_range或OpenGLES2.0或1.1中扩展名提供相应功能</li>
+</ul>
+<p>如果顶点格式内的不同属性需要不同的使用模式,则将顶点数据拆分为多个结构,并为每个具有共同用法特征的属性集合分配一个单独的顶点缓冲区对象,代码8-5修改了前面的实例,使用了一个单独的缓冲区来保存颜色数据.通过使用GL_DYNAMIC_DRAW提示分配颜色缓冲区,OpenGLES可以分配该缓冲区,以便您的应用程序保持合理的性能</p>
+<pre><code class="c++">typedef struct vertexStatic
+{
+    GLfloat position[2];
+}VertexStatic;
+
+typedef struct vertexDynamic
+{
+    GLubyte color[4];
+}vertexDynamic;
+
+// separate buffers for static and dynamic data
+GLuint staticBuffer;
+GLuint dynamicBuffer;
+GLuint indexBuffer;
+
+const vertexStatic staticVertexdata[] = {...};
+vertexDynamic dynamicVertexData[] = {...};
+const GLubyte indices[] = {...};
+
+void CreateBuffer(){
+// static position data
+    glGenBuffers(1, &amp;staticBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, staticBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(staticVertexdata),staticVertexdata,GL_DYNAMIC_DRAW);
+// dynamic color data
+// whild not shown here the expectation is that 
+    glGenbuffers(1,&amp;dynamicBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, dynamicBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(dynamicVertexData), dynamicVertexData, GL_DYNAMIC_DRAW);
+// static index data
+    glGenBuffers(1, &amp;indexBuffer);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices , GL_STATIC_DRAW);
+} 
+
+void DrawModelUsingMultipleVertexBuffers(){
+    glBindBuffer(GL_ARRAY_BUFFER, staticBuffer);
+    glVertexAttribPointer(GLKVertexAttribPosition, 2 , GL_FLOAT, GL_FALSE, 
+        sizeof(vertexStruct), (void *)offsetof(vertexStruct, position));
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+
+    glBindBuffer(GL_ARRAY_BUFFER, dynamicBuffer);
+    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(vertexStruct), (void *)offsetof(vertexStruct, color));
+
+    glEnableVertexAttribArray(GLKVertexAttribColor);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBuffer);
+    glDrawElements(GL_TRIANGLE_STRIP, sizeof(indices)/sizeof(GLubyte), GL_UNSIGNED_BYTE, (void *)0);
+}
+
+</code></pre>
+
+<h2 id="_10">使用定点数组对象合并定点数组状态更改</h2>
+<p>仔细阅读代码8-5中的DrawModelUsingMultipleVertexBuffers函数,启用许多属性, 绑定多个顶点缓冲区对象,并配置尚需经以指向缓冲区.所有这些初始化代码本质上都是静态的.没有参数在帧之间变化.如果每次应用渲染帧时都条用此函数,则重新配置图形管道会产生很多不必要的开销.如果应用程序绘制许多不同类型的模型,则重新配置管道可能成为瓶颈. 而是使用定点数组对象存储完整的属性配置.定点数组对象是核心OpenGLES3.0规范的一部分,并且通过扩展在
+OpenGL ES2.0和1.1中可用</p>
+<p><img src = "/img/vertex_array_objects_2x.png" /></p>
+<p>代码8-6提供了用于配置上面显示的第一个顶点数组对象的代码, 它为新的定点数组对象生成一个标识符,然后将顶点数组对象绑定到上下文.此后,与代码未使用数组对象的情况相同,它进行相同的调用来配置顶点属性.配置存储到绑定的定点数组对象, 而不是上下文.</p>
+<pre><code class="c++">void ConfigureVertexArrayObject(){
+    // create and bind the vertex array object
+    glGenVertexArrays(1, &amp;vao1);
+    glBindVertexArray(vao1);
+    // configure the attributes in VAO
+    glBindBuffer(GL_ARRAY_BUFFER,vao1);
+    glVertexAttribPointer(GLKVertexAttribPosition,3,GL_FLOAT,GL_FALSE,sizeof(staticFmt),(void*)offsetof(staticFmt,position));
+    glEnableVertexAttribArray(GLKVertexAttribPosition);
+    //
+    glVertexAttribPointer(GLKVertexAttribTexCoord0, 2, GL_UNSIGNED_SHORT, GL_TRUE,
+        sizeof(staticFmt), (void*)offsetof(staticFmt,texcoord));
+    glEnableVertexAttribArray(GLKVertexAttribTexCoord0);
+    glVertexAttribPointer(GLKVertexAttribNormal, 3, GL_FLOAT, GL_FALSE,
+        sizeof(staticFmt), (void*)offsetof(staticFmt,normal));
+    glEnableVertexAttribArray(GLKVertexAttribNormal);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vbo2);
+    glVertexAttribPointer(GLKVertexAttribColor, 4, GL_UNSIGNED_BYTE, GL_TRUE,
+        sizeof(dynamicFmt), (void*)offsetof(dynamicFmt,color));
+    glEnableVertexAttribArray(GLKVertexAttribColor);
+
+    // Bind back to the default state.
+    glBindBuffer(GL_ARRAY_BUFFER,0);
+    glBindVertexArray(0);
+}
+
+</code></pre>
+
+<p>要进行绘制, 代码将绑定顶点数组对象,然后像以前一样提交绘制命令</p>
+<pre><code>注意:在OpenGL ES3.0中,不允许客户端存储顶点数组数据-顶点数组对象必须使用顶点缓冲区对象
+</code></pre>
+<p>为了获取最佳性能,您的应用应配置每个定点数组对象一次,并且永远不要在运行时更改它,如果需要在每帧中更改一个顶点数组对象,请创建多个顶点数组对象.例如使用双缓冲应用程序可能会奇数帧配合一组顶点数组对象,而为偶数帧配置第二组顶点数组对象.每组顶点阵列对象将指向用于渲染该帧的顶点缓冲对象.当顶点数组对象配置不变时,OpenGL ES可以缓存有关顶点格式的信息,并改善其处理这些顶点属性的方式</p>
+<h2 id="_11">将缓冲区映射到客户端内存以进行快速更新</h2>
+<p>OpenGL ES应用程序设计中最具挑战性的问题之一是使用动态资源,尤其是在顶点数据需要更改每一帧的情况下.要有效的平更CPU和GPU之间的并行性,需要仔细管理应用程序的内存空间和OpenGL ES内存之间的数据传输.传统技术(例如使用glBufferSubData)会降低性能,因为他们会博士CPU等待数据传输,及时该数据可能是从同一缓冲区中其他位置的数据进行渲染的</p>
+<p>例如,您可能想要修改顶点缓冲区并在每次通过高帧率渲染循环时绘制其内容.当CPU视图访问换种存储器以准备绘制下一帧时,来自渲染的最后一帧的绘制命令可能层在使用GPU,从而导致缓冲区,更新调用阻塞了进一步的CPU工作,知道GPU完成为止,在这种情况下, 您可以通过手动同步CPU和GPU对缓冲区的访问来提高性能</p>
+<p>该glMapBufferRange功能提供了一种更有效的方式来动态更新顶点缓冲区. 使用此函数可检索指向OpenGL ES内存区域的指针,然后可以使用该指针来写入新数据. 该glMapBufferRange功能运行将缓冲区数据存储的任何子范围映射到客户端内存,它还支持将函数与OpenGL同步对象一起使用时运行异步缓冲区修改的提示,如代码8-7所示</p>
+<pre><code class="c++">// 8-7
+GLsync fence;
+GLboolean updateAndDraw(GLuint vbo, GLuint offset, GLuint length, void *data){
+    GLboolean success;
+    // bind and map buffer
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    void *old_data = glMapBufferRange(GL_ARRAY_BUFFER,offset,length, GL_MAP_WRITE_BIT|GL_MAP_FLUSH_EXPLICIT_BIT |
+        GL_MAP_UNSYNCHRONIZED_BIT);
+
+    // wait for fence (set below) before modifying buffer
+    glClientWaitSync(fence, GL_SYNC_FLUSH_COMMANDS_BIT,GL_TIMEOUT_IGNORED);
+    // modify buffer, flush and unmap
+    memcpy(old_data,data, length);
+    glFlushMappedBufferRange(GL_ARRAY_BUFFER,offset,length);
+    success = glUnmapBuffer(GL_ARRAY_BUFFER);
+    // issue other OpenGL ES commands that use other ranges of the VBO`s data
+    // issue draw commands that use this range of VBO`s data
+    DrawMyVBO(vbo);
+    // create a fence that the next frame will wait for
+    fence = glFenceSync(GL_SYNC_GPU_COMMANDS_COMPLETE,0);
+    return success;
+}
+
+</code></pre>
+
+<p>UpdateAndDraw函数使用glFenceSync建立一个同步点,或围栏,提交使用特定缓冲对象的绘图命令之后立即,然后,它在修改缓冲区对象之前,使用glClientWaitSync函数(在下一遍渲染循环中)检查该同步点,如果这些绘制命令在渲染循环返回之前在GPU上完成执行,则CPU执行不会阻塞,该UpdateAndDraw函数将继续修改缓冲区并绘制下一帧.如果GPU尚未完成执行这些命令,则glClientWaitSync函数将阻止进一步的CPU执行,知道GPU到达fence(栅栏)未止.通过仅在可能存在存在资源冲突的代码部分周围手动放置同步点,可以最大程度地减少CPU等待GPU的时间</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

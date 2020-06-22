@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Draw - 王洪飞</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">王洪飞</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">目录 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../list1/">SWIFT</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">Draw</a>
+</li>
+                                    
+<li >
+    <a href="../vertex/">顶点</a>
+</li>
+                                    
+<li >
+    <a href="../list1/">目录1</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">目录2</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../list1/">目录2.1</a>
+</li>
+            
+<li >
+    <a href="../list1/">目录2.2</a>
+</li>
+            
+<li >
+    <a href="../list1/">目录2.3</a>
+</li>
+            
+<li >
+    <a href="../list1/">目录2.4</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../code/">code</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../list1/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../vertex/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#_1">绘制到缓冲目标</a></li>
+        <li class="main "><a href="#_2">创建一个帧缓冲对象</a></li>
+        <li class="main "><a href="#_3">渲染到核心动画层</a></li>
+        <li class="main "><a href="#_4">绘制到帧缓冲对象</a></li>
+            <li><a href="#_5">渲染框架</a></li>
+            <li><a href="#_6">清除缓冲区</a></li>
+            <li><a href="#_7">准备资源并执行绘图命令</a></li>
+            <li><a href="#_8">解决多重采样</a></li>
+            <li><a href="#_9">丢弃不需要的渲染缓冲区</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="_1">绘制到缓冲目标</h2>
+<p>帧缓冲区对象是渲染命令的目标。创建帧缓冲对象时，可以精确控制其颜色、深度和模板数据的存储。
+    您可以通过将图像附加到帧缓冲区来提供此存储如下图所示。最常见的图像附件是renderbuffer对象。您还可以将OpenGL ES
+    纹理附加到帧缓冲区的颜色附加点，这意味着所有绘制命令都将渲染到纹理中。以后纹理可以将作为渲染命令的输入，您还可以在
+    单个渲染上下稳重创建多个帧缓冲区对象，以便在多个帧缓冲之间共享相同的渲染管道和OpenGL ES资源
+    左右这些方法都需要手动创建帧缓冲区和渲染缓冲区对象以存储来自OpenGL ES上下文的渲染结果，以及编写其他代码以将其内容呈现到
+    屏幕上并进行动画循环
+<img alt="Image of smiling textured containers in OpenGL" src="/img/framebuffer_objects_2x.png" class="right medium" /></p>
+<h2 id="_2">创建一个帧缓冲对象</h2>
+<p>用于屏幕外渲染的帧缓冲区将其所有附件分配为OpenGL ES渲染缓冲区，以下代码分配带有颜色和深度附件的帧缓冲区对象。
+1. 创建帧缓冲并绑定它</p>
+<pre><code class="c++">GLuint framebuffer;
+glGenFramebuffers(1, &amp;framebuffer);
+glBindFramebuffer(GL_FRAMEBUFFER,framebuffer);
+</code></pre>
+
+<p>2.创建一个颜色渲染缓冲区，为其分配存储，并将其附加到帧缓冲区的颜色附加点</p>
+<pre><code class="c++">GLuint colorRenderbuffer;
+glGenRenderbuffers(1, &amp;colorRenderbuffer);
+glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
+glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA8, width, height);
+glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorRenderbuffer);
+</code></pre>
+
+<p>3.测试帧缓冲区完整性， 仅当帧缓冲区的配置更改时才需要执行此测试</p>
+<pre><code class="object-C">GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+if (status != GL_FRAMEBUFFER_COMPLETE)
+{
+    NSLog(@&quot;无法制作完整的帧缓冲对象%d&quot;, status);
+}
+
+</code></pre>
+
+<p>4.使用帧缓冲区对象渲染到纹理
+    创建此帧缓冲区的代码几乎与屏幕外实例相同，但是现在分配了纹理并将其附着到颜色附着点</p>
+<pre><code>1.创建帧缓冲对象
+2.创建目标纹理，并将其附加到帧缓冲区的颜色附加点
+</code></pre>
+<pre><code class="object-C">
+// 创建纹理
+GLuint texture;
+glGenTexture(1, &amp;texture);
+glBindTexture(GL_TEXTURE_2D, texture);
+glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_LINEAR);
+gltexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8,width,height,0,GL_RGBA, GL_UNSIGNED_BYTE,NULL);
+glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,texture,0);
+</code></pre>
+
+<pre><code>3 分配并附加一个深度缓冲区
+4 测试帧缓冲区完整性（如前所述）
+</code></pre>
+<p>尽管测实例假定您要渲染为颜色纹理，但是其他选项也是克星的，例如使用OES_depth_texture扩展名，
+您可以将纹理附加到深度附加点，以将场景中的深度信息存储到纹理中， 您可以使用此深度信息来计算最终渲染场景中的阴影</p>
+<h2 id="_3">渲染到核心动画层</h2>
+<p>核心动画是ios上图形渲染和动画的中央基础结构，，您可以使用托管不同ios子系统（UIKit，Quartz和OpenGLES）
+渲染的内容的图层来组成应用程序的用户界面或其他视觉显示。OpenGL ES通过CAEAGLLyer连接到Core Animation
+，该类是Core Animation层的一种特殊类型，其内容来自OpenGL ES渲染缓冲区，Core Animation将
+渲染缓冲区的内容与其他图层合成，并在屏幕上显示结果图像</p>
+<p><img alt="Image of smiling textured containers in OpenGL" src="/img/eagl_framebuffer_caeaglLayer_2x.png" class="right medium" /></p>
+<p>该CAEAGLLayer规定提供的两项主要功能，以OpenGL ES的这种支持，首先，它为渲染缓冲区分配共享
+内容，其次，它将呈现缓冲区给Core Animation，用来自呈现缓冲区的数据替换图层的先前内容，
+该模型的优势在于，仅当渲染的图像发生变化时，才需要在每一帧中都不绘制核心动画层的内容</p>
+<pre><code>要将核心动画层用于OpenGL ES渲染，请执行以下操作：
+1.创建一个CAEAGLLayer对象并配置其属性
+    为了获取组价性能，请将图层opaque属性的值设置为yes，（可选）通过drawableProperties
+    为CAEAGLLayer对象的属性分配值的新字典来配置渲染表明的表面属性。您可以指定渲染缓冲区
+    像素格式，并指定将渲染缓冲区的内容发送到Core Animation后是否将其丢弃。
+2.分配一个OpenGL ES上下文，并使其成为当前上下文
+3.创建帧缓冲区对象
+4.创建一个颜色渲染缓冲区，通过调用上下文的renderbufferStorage:fromDrawable:方法并
+将图层对象作为参数来分配器存储空间。宽度、高度和像素格式取自图层，用于为渲染缓冲区分配
+存储空间
+</code></pre>
+<pre><code class="c++">GLuint colorRenderbuffer;
+glGenRenderbuffers(1, &amp;colorRenderbuffer);
+glBindRenderbuffer(GL_RENDERBUFFER, colorRenderbuffer);
+[myContexture glRenderbufferStorage:GL_RENDERBUFFER fromDrawable:myEAGLLayer];
+glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0,GL_RENDERBUFFER,colorRenderbuffer);
+</code></pre>
+
+<pre><code>注意：当核心动画层的边缘或属性发生改变时，您的应用应重新分配渲染缓冲区的存储。如果不重新分配
+渲染缓冲区，则渲染缓冲区的大小将于图层的大小不匹配，在这种情况下Core Animation可以缩放图像的
+内容以适应图层
+
+5 检索颜色渲染缓冲区的高度和宽度
+</code></pre>
+<pre><code class="c++">GLint width;
+GLint height;
+glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_WIDTH,&amp;width);
+glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_HEIGHT,&amp;height);
+</code></pre>
+
+<pre><code>6 分配并附加一个深度缓冲区（如前所述）
+7 测试帧缓冲区的完整性（如前所述）
+8 通过将CAEAGLLayer对象传递到addSublayer:可见层的方法， 将其添加到“核心动画”层层次结构中
+</code></pre>
+<h2 id="_4">绘制到帧缓冲对象</h2>
+<p>现在您有有了一个帧缓冲对象您，您需要填充它，本节介绍渲染新框架并将其呈现给用户所需步骤。
+渲染到纹理或屏幕外帧缓冲区的行为类似，仅在应用程序使用最终帧的方式方面有所不同</p>
+<p>要使用动画循环进行绘制，请使用一个CADisplayLink对象，显示连接是Core Animation提供的
+一种计时器，使您可以将图形同步到屏幕的刷新率， 下面的代码显示了如何显示视图的屏幕，如何使用
+该屏幕创建新的显示连接对象并将显示连接对象添加到云心循环</p>
+<pre><code class="c++">displayLink = [myView.window.screen displayLinkWithTarget:self selector:@selector(drawFrame)];
+[displayLink addToRunLoop:[NSRunloop currentRunLoop] forMode:NSDefaultRunloopMode];
+
+</code></pre>
+
+<p>在drawFrame方法的实现内部，读取显示链接的timestamp属性以获取要渲染的下一帧时间戳，
+它可以使用该值来计算下一帧中对象的位置
+通常，每次屏幕刷新时会竹筏显示链接对象，该值通常为60Hz，但在不同设备上可能有所不同。大多
+数应用程序不需要没秒更新屏幕60此，您可以将显示链接的frameInterval属性设置为条用方法
+之前经过的实际帧数，例如如果将帧间隔设置为3， 则没三帧或者没秒大约30帧调用您的应用程序
+    重要提示：为了获取最佳效果，请选择您的应用可以持续达到的帧频，与不规则变化的帧速率相比
+    ，平滑，一直的帧速率可以提供令人愉悦的用户体验</p>
+<h3 id="_5">渲染框架</h3>
+<p>下图显示了OpenGL ES应用程序应在ios上呈现和呈现框架的步骤，这些步骤包括许多提示，
+以提高您的应该程序的的性能。
+<img alt="Image of smiling textured containers in OpenGL" 
+src="/img/frame_rendering_flow_2x.png" class="right medium" /></p>
+<h3 id="_6">清除缓冲区</h3>
+<p>在每帧的开始处，删除所有帧缓冲附件的内容，这些附件不需要前一帧的内容来绘制下一帧。调用该
+glClear函数，并传入一个带有所有要清除缓冲区的位掩码</p>
+<pre><code class="c++">glBindFramebuffer(GL_FRAMEBUFFER,framebuffer)
+glClear(GL_DEPTH_BUFFER_BIT|GL_COLOR_BUFFER_BIT);
+</code></pre>
+
+<p>使用glClear可以丢弃渲染去或纹理的现有内容，从而避免了将先前内容加载到内存的昂贵扫错</p>
+<h3 id="_7">准备资源并执行绘图命令</h3>
+<p>这两个步骤包含您在设计应用程序体系结构时做出的大多数关键决策。首先要确定显示给用户的内容，
+并配置相应的OpenGL ES对象（例如定点缓冲区对象，纹理，着色器程序及其输入变量）以上传到GPU
+接下来，提交图形指令以告知GPU如何使用这些资源来渲染框架</p>
+<p>OpenGL ES设计准则中更详细的介绍了渲染器设计，目前，最重要的性能优化要注意的是，如果您的应用仅在
+渲染新帧时才修改OpenGL ES对象， 则其运行速度会更快，尽管您的应用程序可以在修改对象和提交绘图命令至今
+进行切换， 但如果每帧仅执行一次每个步骤，则运行的速度更快（Although your app can alternate between 
+modifying objects and submitting drawing commands (as shown by the dotted line), it runs faster if it only performs each step once.）</p>
+<h3 id="_8">解决多重采样</h3>
+<p>如果您的应用程序使用多重采样来提高图像质量，则您的应用程序必须先解析像素，然后在将像素展示给用户
+。使用多重采样提高图像质量中介绍了多重采样</p>
+<h3 id="_9">丢弃不需要的渲染缓冲区</h3>
+<p>一个丢弃操作是性能暗示告诉OpenGL ES即不在需要一个或多个renderbuffers的内容，通过向OpenGL ES
+提示您不需要渲染缓冲区的内容，可以丢弃缓冲区中的数据，并且可以避免执行昂贵的任务来保持这些缓冲区的
+内容更新</p>
+<p>在渲染循环的阶段，您的应用程序已提交了该框架的所有绘制命令，虽然您的应用程序需要颜色缓冲区才能
+显示在屏幕上，但可能不需要深度缓冲区的内容。</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

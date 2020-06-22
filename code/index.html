@@ -53,27 +53,21 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">目录 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
-  <li class="dropdown-submenu">
-    <a href="#">目录1</a>
-    <ul class="dropdown-menu">
-            
 <li >
-    <a href="../目录1/list1/">目录1.1</a>
+    <a href="../目录1/list1/">SWIFT</a>
 </li>
-            
+                                    
 <li >
-    <a href="../目录1/list1/">目录1.2</a>
+    <a href="../目录1/draw/">Draw</a>
 </li>
-            
+                                    
 <li >
-    <a href="../目录1/list1/">目录1.3</a>
+    <a href="../目录1/vertex/">顶点</a>
 </li>
-            
+                                    
 <li >
-    <a href="../目录1/list1/">目录1.4</a>
+    <a href="../目录1/list1/">目录1</a>
 </li>
-    </ul>
-  </li>
                                     
   <li class="dropdown-submenu">
     <a href="#">目录2</a>
@@ -127,21 +121,36 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#code-title1">code title1</a></li>
+        <li class="main active"><a href="#_1">向量叉乘</a></li>
+        <li class="main "><a href="#code">code</a></li>
+        <li class="main "><a href="#camera">camera</a></li>
         <li class="main "><a href="#code-title2">code title2</a></li>
         <li class="main "><a href="#code-title3">code title3</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h2 id="code-title1">code title1</h2>
-<pre><code>塑料袋咖啡机凉开水解放路口设计
-的福利卡士大夫索拉卡登记反馈拉数据法考
-虑是否落实的看法 肯定就发了快速减肥雷克萨收款方经理开始打就流口水的房间里刷卡缴费卢卡斯荆防颗粒时代峻峰看电视剧分离圣诞节快乐
+<h2 id="_1">向量叉乘</h2>
+<pre><code>左手定则:
+vec3 front, right;
+vec3 up = cross(right, front);
+向量right从左手手心穿过, 除拇指外的四根手指指向front方向,这时大拇指指向的就是向量up的方向
+</code></pre>
+<h2 id="code">code</h2>
+<h2 id="camera">camera</h2>
+<pre><code>包含的向量元素:
+位置pos,方向front,右right, 俯仰角(Pitch)、偏航角(Yaw),移动速度(MovementSpeed), 
+        灵敏度(MouseSensitivity)
+
+实现的动作:
+    向前移动(forward): 沿front方向移动
+    向后移动(backward): 沿front反方向移动
+    向右移动(right): 沿向量right移动
+    向左移动(left): 沿向right反向移动
+    沿x轴转动:pitch
+    沿y轴转动:yaw
 </code></pre>
 <h2 id="code-title2">code title2</h2>
-<pre><code>上来看的解放路口的解放路口我我euroIE吾提欧俄如题or讹脱诶u我揉腿饿哦入土为偶然图哦恶如特让他我瑞特欧诶如题欧已人头我为UR特让我推哦
-</code></pre>
 <h2 id="code-title3">code title3</h2></div>
         </div>
 
