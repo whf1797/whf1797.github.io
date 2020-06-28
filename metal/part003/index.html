@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>part3 - 王洪飞</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">王洪飞</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Metal <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../part001/">part1</a>
+</li>
+                                    
+<li >
+    <a href="../part002/">part2</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">part3</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../目录1/list1/">SWIFT</a>
+                            </li>
+                            <li >
+                                <a href="../../目录1/list1/">Object-C</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">目录 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../目录1/list1/">SWIFT</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/draw/">Draw</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/vertex/">顶点</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/list1/">目录1</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">目录2</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../目录1/list1/">目录2.1</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.2</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.3</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.4</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../code/">code</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../part002/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../目录1/list1/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#metal-part003">metal part003</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="metal-part003">metal part003</h2>
+<p>在上一小节中我们承诺将要学习更多的 metal shading language.在学习之前,首先让我们做一些代码重构,这样可以让我们的代码逻辑看起来更加清晰</p>
+<pre><code>var vertex_buffer:MTLBuffer!
+var rps:MTLRenderPipelineState! = nil
+
+func render()  {
+    device = MTLCreateSystemDefaultDevice()
+    createBuffer()
+    registerShaders()
+    sendToGPU()
+}
+</code></pre>
+
+<p>对于 func createBuffer()函数,我么要做一些改变,记得上一节里,顶点的结构是这样的</p>
+<pre><code>let vertex_data:[Float] = [-1.0, -1.0, 0.0, 1.0,
+                           1.0, -1.0, 0.0, 1.0,
+                           0.0,  1.0, 0.0, 1.0]
+
+</code></pre>
+
+<p>让我们把它转成一种个合适的格式,一个包含两个vector_float4类成员的结构,一个用于位置,另一个用于颜色</p>
+<pre><code>
+struct Vertex {
+    var position:vector_float4
+    var color:vector_float4
+
+}
+</code></pre>
+
+<p>你可能想知道vector_float4是什么样的数据类型,从 apple 的文档中,我们发现 vector 类型是基于 clang 的类型,比传统的 SIMD 更适合向量与向量 和向量与标量的元素,可以通过数组索引也可以通过.x .y .z .w 来访问其元素,还可以方便的访问以下子向量:.lo/.hi(向量的上半部分和下半部分)</p>
+<p>让我们回到createBuffer()函数,可以用新的数据结构来修改顶点数据</p>
+<pre><code>
+func createBuffer() {
+    let vertex_data:[Vertex] = [Vertex(position: [-1.0,-0.0,0.0,1.0], color: [1,0,0,1]),
+                                Vertex(position: [1.0,-1.0,0.0,1.0], color: [0,1,0,1]),
+                                Vertex(position: [0.0,1.0,0.0,1.0], color: [0,0,1,1])]
+
+    let dataSize = vertex_data.count * MemoryLayout&lt;Vertex&gt;.size
+    vertex_buffer = device?.makeBuffer(bytes: vertex_data, length: dataSize, options: [])
+}
+</code></pre>
+
+<p>你可能会注意到将它作为一个结构数组使用是多么方便,我们可以在其中轻松的创建顶点,你应该还注意到我们保留了顶点位置,并且为每个定点添加了不同的颜色,接下来是registerShaders()函数,我们不会对旧代码做任何修改</p>
+<pre><code>
+func registerShaders() {
+    let library = device?.makeDefaultLibrary()
+    let vertex_func = library?.makeFunction(name: &quot;vertex_func&quot;)
+    let frag_func = library?.makeFunction(name: &quot;frag_func&quot;)
+    let rpld = MTLRenderPipelineDescriptor()
+    rpld.vertexFunction = vertex_func
+    rpld.fragmentFunction = frag_func
+    rpld.colorAttachments[0].pixelFormat = .bgra8Unorm
+    rps = try! device?.makeRenderPipelineState(descriptor: rpld)
+}
+
+</code></pre>
+
+<p>最后把sendToGPU()完成,同样是没什么需要修改的</p>
+<pre><code>
+    func sendToGPU() {
+        if let rpd = currentRenderPassDescriptor,let drawalbe = currentDrawable {
+            let commandQueue = device?.makeCommandQueue()
+            let commandBuffer = commandQueue?.makeCommandBuffer()
+            let commandEncoder = commandBuffer?.makeRenderCommandEncoder(descriptor: rpd)
+
+            commandEncoder?.setRenderPipelineState(rps)
+            commandEncoder?.setVertexBuffer(vertex_buffer, offset: 0, index: 0)
+            commandEncoder?.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3)
+
+            commandEncoder?.endEncoding()
+            commandBuffer?.present(drawalbe)
+            commandBuffer?.commit()
+
+        }
+    }
+
+</code></pre>
+
+<p>接下来是 shader.metal 文件,我们要做两处修改,首先在结构体添加一个颜色变量,以便在 CPU 和 GPU 之间传递它</p>
+<pre><code>struct Vertex{
+    float4 position [[position]];
+    float4 color;
+};
+</code></pre>
+
+<p>然后是片段着色函数</p>
+<pre><code>
+fragment float4 frag_func(Vertex vert[[stage_in]]){
+    return vert.color;
+}
+</code></pre>
+
+<p>运行程序,如果正常效果应该是这样的</p>
+<p><img alt="Image of smiling textured containers in OpenGL" src="/img/metal/chapter03_1.png" class="right medium" /></p>
+<p>你可能会疑惑为什么从传递给着色器的三个顶点移开时,颜色会变成渐变,要了解这一点,首先必须要了解两个 shader 之间的区别,以及他们在渲染管线中扮演的角色,让我们看看着色器程序的语法</p>
+<pre><code>vertex Vertex vertex_func(constant Vertex *vertices [[buffer(0)]], uint vid [[vertex_id]])
+
+</code></pre>
+
+<p>第一个关键字是函数限定符,值只有 vertex,fragment或者 kernel,下一个关键字是返回类型,接下来是函数名,后跟括号内的函数参数,metal 着色语言限制指针的使用,除非设备,线程组(threadgroup)或者常量地址空间(constant)限定符声明参数,该限定符指定分配函数变量或参数的内存区域. [[...]]语法用于声明资源位置,着色器输入和在着色器与 CPU 之间传递的内置变量等属性</p>
+<p>metal 使用 [[buffer(index)]] 来标识设备和常量缓冲区参数类型的位置,内置的输入和输出变量用于在图形(顶点和片段)函数和固定函数图形管道阶段之间传递值.在我们的例子中[[vertex_id]]是通信中使用的每个定点的标识符.metal 使用定点函数的输出和光栅化器生成的片段,生成片段函数的逐片段输入,每个片段的输入有[[stage_in]]属性限定标识符</p>
+<p>顶点着色器将指向顶点列表的指针作为第一个参数,我们将能够使用第二个参数 vid 索引到顶点,该参数的属性是 vertex_id,它告诉 metal 插入当前作为该参数处理的定点索引.然后我们只需沿着每个定点(及其位置和颜色)传递给片段着色使用,片段着色器所做的就是获取从定点着色器传递的定点,并在不更改任何输入数据的情况下传递每个像素的颜色,定点着色器不经常运行,而片段着色器为每个需要绘制的像素运行数千次</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

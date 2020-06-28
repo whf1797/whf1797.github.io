@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>part2 - 王洪飞</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">王洪飞</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Metal <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../part001/">part1</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">part2</a>
+</li>
+                                    
+<li >
+    <a href="../part003/">part3</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../目录1/list1/">SWIFT</a>
+                            </li>
+                            <li >
+                                <a href="../../目录1/list1/">Object-C</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">目录 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../目录1/list1/">SWIFT</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/draw/">Draw</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/vertex/">顶点</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/list1/">目录1</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">目录2</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../目录1/list1/">目录2.1</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.2</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.3</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.4</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../code/">code</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../part001/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../part003/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#metal">metal:几何图形</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="metal">metal:几何图形</h2>
+<p>上一节简单介绍了 MetalKit,让我们重新看下这段代码</p>
+<pre><code>    func render() {
+        self.device = MTLCreateSystemDefaultDevice()
+        let rpd = MTLRenderPassDescriptor()
+        let bleen = MTLClearColor(red: 0, green: 0.5, blue: 0.5, alpha: 1)
+        rpd.colorAttachments[0].texture = currentDrawable?.texture
+        rpd.colorAttachments[0].clearColor = bleen
+        rpd.colorAttachments[0].loadAction = .clear
+
+        let commandQueue = self.device?.makeCommandQueue()
+        let commandBuffer = commandQueue?.makeCommandBuffer()
+        let encoder = commandBuffer?.makeRenderCommandEncoder(descriptor: rpd)
+
+        encoder?.endEncoding()
+        commandBuffer?.present(currentDrawable!)
+        commandBuffer?.commit()
+    }
+</code></pre>
+
+<p>上一节我们提到需要确保currentDrawable和currentRenderPassDescriptor不能是 nil,否则程序会崩溃,但我们其实并没有做相应的判断,现在我们更新下我们的代码</p>
+<pre><code>    func render() {
+        self.device = MTLCreateSystemDefaultDevice()
+        if let rpd = currentRenderPassDescriptor, let drawable = currentDrawable {
+            let bleen = MTLClearColor(red: 0, green: 0.5, blue: 0.5, alpha: 1)
+            rpd.colorAttachments[0].texture = currentDrawable?.texture
+            rpd.colorAttachments[0].clearColor = bleen
+            rpd.colorAttachments[0].loadAction = .clear
+
+            let commandQueue = self.device?.makeCommandQueue()
+            let commandBuffer = commandQueue?.makeCommandBuffer()
+            let encoder = commandBuffer?.makeRenderCommandEncoder(descriptor: rpd)
+
+            encoder?.endEncoding()
+            commandBuffer?.present(drawable)
+            commandBuffer?.commit()
+        }
+    }
+
+</code></pre>
+
+<p>你可能会疑惑colorAttachments[0]是什么意思
+为了设置渲染管线的状态,metal 提供了 3 个类型的 attachments供程序员写入,分别是</p>
+<ul>
+<li>colorAttachments</li>
+<li>depthAttachmentPixelFormat</li>
+<li>stencilAttachmentPixelFormat
+现在我们只关心存储颜色数据,而colorAttachments是一个纹理数组,它保存图形结果并显示在屏幕上. 我们目前只有这样一个纹理:数组的的第一个元素.运行程序,正常的话还是会得到一个跟上一节一样的结果</li>
+</ul>
+<p>接下来,我们需要在屏幕上绘制一个几何图形,其实在所有的图形的教程中比如 OpenGL,都是从一个 Hello Triangle 类型的程序开始的,因为三角形是可以在屏幕上绘制的最简单的几何形式,他是一个二维图形的基本元素,图形时间中所有其他对象都是由三角形组成的,因此这是一个很好的起点,假设屏幕坐标系的轴穿过屏幕中心,屏幕中心坐标为(0,0),屏幕编译为(-1,1),让我们创建一个浮动数组和一个缓冲区来保存三角形的顶点值,在初始化设备后立即插入这些行代码</p>
+<pre><code class="swift">let vertex_data:[Float] = [-1.0,-1.0,0.0,1.0,
+                           1.0,-0.0,0.0,1.0,
+                           0.0,1.0,0.0,1.0]
+let data_size = vertex_data.count * MemoryLayout&lt;Float&gt;.size
+let vertex_buffer = device!.makeBuffer(bytes: vertex_data, length: data_size, options: [])
+</code></pre>
+
+<p>不难注意到每一个顶点有四个浮点型数据用来表示它的坐标值,前两个表示 x y坐标,第单个是 z 坐标,第 4 个是 w 坐标,使得我们的坐标是齐次的.然后我们计算这个 12 个浮点数的大小,最后根据这个顶点及其大小创建一个缓冲区.现在我们已经存储了顶点数.
+让我们看看屏幕上绘制图形的整个过程(管线)</p>
+<p><img alt="Image of smiling textured containers in OpenGL" src="/img/metal/chapter02_1.png" class="right medium" /></p>
+<p>我们已经完成了第一步,存储顶点.你应该注意到下一步需要我们有一个名为 shader 的新构造.一个 shader(着色器)就是允许程序员自定义着色函数的程序. metal 提供了几种类型的着色器,但是,今天我们只需要其中的两种:负责位置的定点着色器和负责点颜色的片段着色器</p>
+<p>metal提供了一个函数可以在 device 上调用并创建函数库(着色器):</p>
+<pre><code>let library = device?.makeDefaultLibrary()
+let vertex_func = library?.makeFunction(name: &quot;vertex_func&quot;)
+let frag_func = library?.makeFunction(name: &quot;fragment_func&quot;)
+
+</code></pre>
+
+<p>我们创建了两个新的函数并将他们指向相应的着色器(稍后创建),下一步是创建需要了解着色器的渲染管道描述符</p>
+<pre><code>let rpld = MTLRenderPipelineDescriptor()
+rpld.vertexFunction = vertex_func
+rpld.fragmentFunction = frag_func
+rpld.colorAttachments[0].pixelFormat = .bgra8Unorm
+</code></pre>
+
+<p>你坑能又疑惑bgra8Unorm是什么,此设置配置像素格式,以便通过渲染管道的所有内容都符合颜色组件的相同顺序(在本例中为蓝色,绿色,红色,alpha)以及大小(本例中为 8 位颜色值,从 0~255),最后一步是基于以上内容创建渲染管道状态</p>
+<pre><code>let rps  = try! device?.makeRenderPipelineState(descriptor: rpld)
+</code></pre>
+
+<p>最后,我们只需要让 command encoder知道我们的三角形, 所有把下面的代码添加在创建 encoder 之后</p>
+<pre><code>encoder?.setRenderPipelineState(rps!)
+encoder?.setVertexBuffer(vertex_buffer, offset: 0, index: 0)
+encoder?.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3, instanceCount: 1)
+
+</code></pre>
+
+<p>现在让我们去兑现承诺去创建两个着色器,在 Xcode 中新建文件,类型为 Metal 类型,名称随意,创建成功后,你可能很快回意识到代码跟 swift 很不一样,这是因为着色器语言是基于 c++的,我们添加一下代码</p>
+<pre><code>
+struct Vertex{
+    float4 position [[position]];
+};
+
+vertex Vertex vertex_func(constant Vertex *vertices [[buffer(0)]], uint vid[[vertex_id]]){
+    return vertices[vid];
+}
+fragment float4 fragment_func(Vertex vert[[stage_in]]){
+    return float4(0.7,1.0,1.0,1.0);
+}
+
+</code></pre>
+
+<p>代码很简单,首先创建一个 Vertex 的结构体,只有一个成员:一个位置数组, 我们注意到数组是 float4,在着色语言中,它与我们之间创建的顶点相同,每个定点有四个浮点数,我们把对[[...]]语法的解释留给下一次,然后我们有返回当前顶点位置的 vertex_func 和返回当前顶点颜色的 fragment_func 着色器,我们硬编码了一个特定的颜色值,但是我们可以向顶点添加一个颜色结构成员,并未每个定点分别设置颜色</p>
+<p>如果正常的话效果应该是这样的</p>
+<p><img alt="Image of smiling textured containers in OpenGL" src="/img/metal/chapter02_2.png" class="right medium" /></p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
