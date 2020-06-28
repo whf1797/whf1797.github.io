@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>part5 - 王洪飞</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">王洪飞</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Metal <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../part001/">part1</a>
+</li>
+                                    
+<li >
+    <a href="../part002/">part2</a>
+</li>
+                                    
+<li >
+    <a href="../part003/">part3</a>
+</li>
+                                    
+<li >
+    <a href="../part004/">part4</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">part5</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../目录1/list1/">SWIFT</a>
+                            </li>
+                            <li >
+                                <a href="../../目录1/list1/">Object-C</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">目录 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../目录1/list1/">SWIFT</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/draw/">Draw</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/vertex/">顶点</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/list1/">目录1</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">目录2</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../目录1/list1/">目录2.1</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.2</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.3</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.4</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../code/">code</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../part004/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../../目录1/list1/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#metal-part005">metal part005</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="metal-part005">metal part005</h1>
+<p>上次我们描述了图形管线和 metal 管线,现在我们应该深入了解管线内部,了解如何在比较低级别上真正处理顶点.为此,我们需要学习一些三维属性概念,入转换</p>
+<p>在三维图形的世界中,我们经常从 3 维或 4 维的角度考虑我们的数据,正如你从我们之前的片段中记得的，位置和颜色都是vector_float4（四维）类型。为了在屏幕上绘制三维几何图形，顶点经历了一系列的变换——从对象空间到世界空间，再到相机/眼睛空间，再到裁剪空间，再到标准化的设备坐标空间，最后到屏幕空间。我们只看这一集的第一个阶段。</p>
+<p>三角形的顶点是用一个物体空间（局部坐标）来表示的。它们当前是关于位于屏幕中心的三角形原点指定的。为了在更大的场景（世界空间）中定位和移动三角形，我们需要对这些顶点应用变换。我们将看到的变换是：缩放、平移和旋转。</p>
+<p>三角形的顶点是用一个物体空间（局部坐标）来表示的。它们当前是关于位于屏幕中心的三角形原点指定的。为了在更大的场景（世界空间）中定位和移动三角形，我们需要对这些顶点应用变换。我们将看到的变换是：缩放、平移和旋转。</p>
+<pre><code>
+
+| 1     0     0    Dx |
+| 0     1     0    Dy |
+| 0     0     1    Dz |
+| 0     0     0     1 |
+</code></pre>
+
+<p>The scaling matrix is also similar to an identity matrix where positions [0], [5] and [10] are populated with the values of a S vector representing the scale the vertex would be zoomed in/out to. The x, y, z vector values are usually the same float value since scaling is done proportionally on all axes.</p>
+<pre><code>
+| 1     0     0    Dx |
+| 0     1     0    Dy |
+| 0     0     1    Dz |
+| 0     0     0     1 |
+</code></pre>
+
+<p>旋转矩阵也类似于一个恒等式矩阵，根据我们旋转的轴，不同的位置被我们旋转角度的正弦或余弦填充。如果我们绕x轴旋转，位置[5]、[6]、[9]和[10]将填充。如果我们围绕y轴旋转，则位置[0]、[2]、[8]和[10]将填充。最后，如果我们绕z轴旋转，位置[0]、[1]、[4]和[5]将填充。记住，这些位置需要转换成列主顺序。</p>
+<pre><code>
+| 1     0     0     0 |
+| 0    cos  -sin    0 |
+| 0    sin   cos    0 |
+| 0     0     0     1 |
+
+| cos   0    sin    0 |
+| 0     1     0     0 |
+| -sin  0    cos    0 |
+| 0     0     0     1 |
+
+| cos  -sin   0     0 |
+| sin  cos    0     0 |
+| 0     0     1     0 |
+| 0     0     0     1 |
+</code></pre>
+
+<p>好吧，我们有足够一周的数学，所以让我们把这些矩阵放入代码中。我们将在第3部分结束后继续执行代码。我们可以方便地创建一个名为Matrix的结构，它将包含以下转换：</p>
+<pre><code>struct Matrix {
+    var m: [Float]
+
+    init() {
+        m = [1, 0, 0, 0,
+             0, 1, 0, 0,
+             0, 0, 1, 0,
+             0, 0, 0, 1
+        ]
+    }
+
+    func translationMatrix(var matrix: Matrix, _ position: float3) -&gt; Matrix {
+        matrix.m[12] = position.x
+        matrix.m[13] = position.y
+        matrix.m[14] = position.z
+        return matrix
+    }
+
+    func scalingMatrix(var matrix: Matrix, _ scale: Float) -&gt; Matrix {
+        matrix.m[0] = scale
+        matrix.m[5] = scale
+        matrix.m[10] = scale
+        matrix.m[15] = 1.0
+        return matrix
+    }
+
+    func rotationMatrix(var matrix: Matrix, _ rot: float3) -&gt; Matrix {
+        matrix.m[0] = cos(rot.y) * cos(rot.z)
+        matrix.m[4] = cos(rot.z) * sin(rot.x) * sin(rot.y) - cos(rot.x) * sin(rot.z)
+        matrix.m[8] = cos(rot.x) * cos(rot.z) * sin(rot.y) + sin(rot.x) * sin(rot.z)
+        matrix.m[1] = cos(rot.y) * sin(rot.z)
+        matrix.m[5] = cos(rot.x) * cos(rot.z) + sin(rot.x) * sin(rot.y) * sin(rot.z)
+        matrix.m[9] = -cos(rot.z) * sin(rot.x) + cos(rot.x) * sin(rot.y) * sin(rot.z)
+        matrix.m[2] = -sin(rot.y)
+        matrix.m[6] = cos(rot.y) * sin(rot.x)
+        matrix.m[10] = cos(rot.x) * cos(rot.y)
+        matrix.m[15] = 1.0
+        return matrix
+    }
+
+    func modelMatrix(var matrix: Matrix) -&gt; Matrix {
+        return matrix
+    }
+</code></pre>
+
+<p>让我们来看看这个代码。我们首先创建struct并声明一个float数组。然后我们为它提供一个初始值设定项，它是身份矩阵（所有1都在对角线上）。接下来，我们创建转换矩阵。最后，我们创建了一个modelMatrix，它将所有转换合并为一个输出矩阵。</p>
+<p>为了让这些转换工作，我们需要通过一个着色器将它们发送到GPU。为了做到这一点，我们首先需要创建一个新的缓冲区。我们把它命名为uniform缓冲区。当我们想要发送应用于整个模型而不是每个顶点的数据时，我们可以使用uniform结构。我们只需要使用制服来节省空间，并发送一个包含所有转换的最终模型矩阵。因此，在MetalView类的一开始，创建新的缓冲区：</p>
+<pre><code>
+var uniform_buffer: MTLBuffer!
+</code></pre>
+
+<p>在createBuffers（）函数中，为缓冲区分配足够容纳4x4矩阵的内存</p>
+<pre><code>
+
+uniform_buffer = device!.newBufferWithLength(sizeof(Float) * 16, options: [])
+let bufferPointer = uniform_buffer.contents()
+memcpy(bufferPointer, Matrix().modelMatrix(Matrix()).m, sizeof(Float) * 16)
+
+</code></pre>
+
+<p>sendToGPU() 函数中在设置了vertex_buffer之后,同样设置 uniform_buffer</p>
+<p>最后，让我们转到着色器,metal对于配置的最后一部分。在顶点结构下面，创建一个名为Uniforms的新结构，它将保存我们的模型矩阵：</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
