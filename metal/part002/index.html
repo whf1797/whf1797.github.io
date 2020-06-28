@@ -64,6 +64,14 @@
 <li >
     <a href="../part003/">part3</a>
 </li>
+                                    
+<li >
+    <a href="../part004/">part4</a>
+</li>
+                                    
+<li >
+    <a href="../part005/">part5</a>
+</li>
                                 </ul>
                             </li>
                             <li >
@@ -252,7 +260,7 @@ fragment float4 fragment_func(Vertex vert[[stage_in]]){
 
 <p>代码很简单,首先创建一个 Vertex 的结构体,只有一个成员:一个位置数组, 我们注意到数组是 float4,在着色语言中,它与我们之间创建的顶点相同,每个定点有四个浮点数,我们把对[[...]]语法的解释留给下一次,然后我们有返回当前顶点位置的 vertex_func 和返回当前顶点颜色的 fragment_func 着色器,我们硬编码了一个特定的颜色值,但是我们可以向顶点添加一个颜色结构成员,并未每个定点分别设置颜色</p>
 <p>如果正常的话效果应该是这样的</p>
-<p><img alt="Image of smiling textured containers in OpenGL" src="/img/metal/chapter02_2.png" class="right medium" /></p></div>
+<p><img alt="" src="/img/metal/chapter02_2.png" class="right medium" /></p></div>
         </div>
 
         <footer class="col-md-12">
