@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>part6 - 王洪飞</title>
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap-3.0.3.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="container">
+
+                <!-- Collapsed navigation -->
+                <div class="navbar-header">
+                    <!-- Expander button -->
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="../..">王洪飞</a>
+                </div>
+
+                <!-- Expanded navigation -->
+                <div class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li >
+                                <a href="../..">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Metal <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../part001/">part1</a>
+</li>
+                                    
+<li >
+    <a href="../part002/">part2</a>
+</li>
+                                    
+<li >
+    <a href="../part003/">part3</a>
+</li>
+                                    
+<li >
+    <a href="../part004/">part4</a>
+</li>
+                                    
+<li >
+    <a href="../part005/">part5</a>
+</li>
+                                    
+<li class="active">
+    <a href="./">part6</a>
+</li>
+                                    
+<li >
+    <a href="../part007/">part7</a>
+</li>
+                                    
+<li >
+    <a href="../part008/">part8</a>
+</li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../目录1/list1/">SWIFT</a>
+                            </li>
+                            <li >
+                                <a href="../../目录1/list1/">Object-C</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">目录 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li >
+    <a href="../../目录1/list1/">SWIFT</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/draw/">Draw</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/vertex/">顶点</a>
+</li>
+                                    
+<li >
+    <a href="../../目录1/list1/">目录1</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#">目录2</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../目录1/list1/">目录2.1</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.2</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.3</a>
+</li>
+            
+<li >
+    <a href="../../目录1/list1/">目录2.4</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li >
+                                <a href="../../code/">code</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li >
+                                <a rel="next" href="../part005/">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li >
+                                <a rel="prev" href="../part007/">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#metal-part006">metal part006</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="metal-part006">metal part006</h1>
+<p>让我们看看使用较新的MetalKit框架与使用早期的Metal框架有什么区别。它们仍然共存，但是MetalKit引入了一些强大的功能，例如</p>
+<ul>
+<li>
+<p>简单的纹理加载（甚至用几行代码异步加载）。</p>
+</li>
+<li>
+<p>模型I/O网格和金属缓冲区之间的高效数据传输。</p>
+</li>
+<li>
+<p>MTKView—一个方便的金属感知视图（我们将更详细地了解它）。</p>
+</li>
+</ul>
+<p>我们先来看第一张的代码</p>
+<pre><code>import MetalKit
+
+class MetalView: MTKView {
+
+    override func drawRect(dirtyRect: NSRect) {
+        super.drawRect(dirtyRect)
+        render()
+    }
+
+    func render() {
+        device = MTLCreateSystemDefaultDevice()
+        if let rpd = currentRenderPassDescriptor, drawable = currentDrawable {
+            rpd.colorAttachments[0].clearColor = MTLClearColorMake(0, 0.5, 0.5, 1.0)
+            let command_buffer = device!.newCommandQueue().commandBuffer()
+            let command_encoder = command_buffer.renderCommandEncoderWithDescriptor(rpd)
+            command_encoder.endEncoding()
+            command_buffer.presentDrawable(drawable)
+            command_buffer.commit()
+        }
+    }
+}
+
+</code></pre>
+
+<p>就这样！简单而优雅的方式来清除你的背景色到你选择的自定义颜色。现在让我们切换到使用没有MTKView的Metal框架，因此我们将需要子类NSView（或iOS中的UIView）</p>
+<pre><code>
+import UIKit
+
+class MetalView: UIView {
+
+
+
+}
+</code></pre>
+
+<p>你很快就能发现我们不在能够使用以下的属性</p>
+<ul>
+<li>a device</li>
+<li>a drawable</li>
+<li>a render pass descriptor</li>
+</ul>
+<p>下面面让我们来解决这个问题,由于 UIView 不是一个 Metal-aware,我们需要创建一个CAMetalLayer,并告诉 UIView 用它作为后台层.CAMetalLayer是一个核心动画层,它管理用于渲染其内容的纹理池,要使用 metal 进行渲染,我们需要使用这个类作为视图的支持层,方法是从视图的layerClass（）类方法返回它</p>
+<pre><code>var metalLayer:CAMetalLayer {
+    return self.layer as! CAMetalLayer
+}
+
+override static var layerClass: AnyClass{
+    return CAMetalLayer.self
+}
+</code></pre>
+
+<p>接下来,在 render()函数中创建一个新设备,令metalLayer持有该设备,设置像素格式,然后创建一个可绘制层,注意我们没有使用 MTKView 提供的 currentDrawable,相反,CAMetalLayer提供了 nextDrawable 供使用.最后创建一个渲染过程描述符,这两同样没有提供currenderpassdescriptor</p>
+<pre><code>func render() {
+    let device = MTLCreateSystemDefaultDevice()
+    metalLayer.device = device
+    metalLayer.pixelFormat = .bgra8Unorm
+    let drawable = metalLayer.nextDrawable()
+    let texture = drawable?.texture
+    let rpd = MTLRenderPassDescriptor()
+}
+</code></pre>
+
+<p>结束之前,让我们看看 MTKView 类,再次了解为什么这是在我们的应用程序中使用 metal 呈现内容的首选方法</p>
+<pre><code>
+open class MTKView : UIView, NSCoding, CALayerDelegate {
+
+    public init(frame frameRect: CGRect, device: MTLDevice?)
+
+    public init(coder: NSCoder)
+
+    weak open var delegate: MTKViewDelegate?
+
+    open var device: MTLDevice?
+
+    open var currentDrawable: CAMetalDrawable? { get }
+
+    open var framebufferOnly: Bool
+
+    @available(iOS 13.0, *)
+    open var depthStencilAttachmentTextureUsage: MTLTextureUsage
+
+    @available(iOS 13.0, *)
+    open var multisampleColorAttachmentTextureUsage: MTLTextureUsage
+
+    open var presentsWithTransaction: Bool
+
+    open var colorPixelFormat: MTLPixelFormat
+
+    open var depthStencilPixelFormat: MTLPixelFormat
+
+    open var sampleCount: Int
+
+    open var clearColor: MTLClearColor
+
+    open var clearDepth: Double
+
+    open var clearStencil: UInt32
+
+    open var depthStencilTexture: MTLTexture? { get }
+
+    open var multisampleColorTexture: MTLTexture? { get }
+
+    open func releaseDrawables()
+
+    open var currentRenderPassDescriptor: MTLRenderPassDescriptor? { get }
+
+     open var preferredFramesPerSecond: Int
+
+
+    open var enableSetNeedsDisplay: Bool
+
+
+    open var autoResizeDrawable: Bool
+
+
+    open var drawableSize: CGSize
+
+
+    open var preferredDrawableSize: CGSize { get }
+
+
+    @available(iOS 13.0, *)
+    open var preferredDevice: MTLDevice? { get }
+
+
+    open var isPaused: Bool
+
+    open func draw()
+}
+
+
+
+@available(iOS 9.0, *)
+public protocol MTKViewDelegate : NSObjectProtocol {
+
+    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize)
+
+    func draw(in view: MTKView)
+}
+</code></pre>
+
+<p>在众多的属性中，请注意我们特别感兴趣的属性：device、currentDrawable和currenderpassdescriptor。同样值得一提的是，该类为其MTKViewDelegate属性提供了一个协议。要了解这些属性和函数的更多信息，请参阅MTKView参考文档。</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+        <script src="../../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
